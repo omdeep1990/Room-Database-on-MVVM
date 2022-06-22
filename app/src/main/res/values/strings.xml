@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Room Database On MVVM Architecture</string>
+    <string name="enterv_your_first_name">Enter Your First Name</string>
+    <string name="enter_your_last_name">Enter Your Last Name</string>
+    <string name="enter_your_mobile_number">Enter Your Mobile Number</string>
+    <string name="your_name">YOUR NAME</string>
+    <string name="your_profession">YOUR PROFESSION</string>
+    <string name="mobile_no">MOBILE NO</string>
+    <string name="enter_your_profile">ENter Your Profile.</string>
+</resources>
