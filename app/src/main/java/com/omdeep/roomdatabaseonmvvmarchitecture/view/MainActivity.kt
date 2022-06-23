@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         //TODO: Initializing all the MVVM concepts used here
         val dao = DeveloperDatabase.getInstance(this).dao
         val repository = DeveloperRepository(dao)
-        val factory = DeveloperFactory(repository)
+        val factory = DeveloperFactory(repository, application)
         myViewModel = ViewModelProvider(this, factory)[MyViewModel::class.java]
 
         //TODO: Displaying the developer data

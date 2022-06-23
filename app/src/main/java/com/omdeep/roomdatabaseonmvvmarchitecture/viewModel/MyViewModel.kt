@@ -1,18 +1,20 @@
 package com.omdeep.roomdatabaseonmvvmarchitecture.viewModel
 
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omdeep.roomdatabaseonmvvmarchitecture.repository.DeveloperRepository
 import com.omdeep.roomdatabaseonmvvmarchitecture.roomDatabase.DeveloperEntity
 import kotlinx.coroutines.launch
 
-class MyViewModel(private val developerRepository: DeveloperRepository) : ViewModel() {
+class MyViewModel(private val developerRepository: DeveloperRepository, application: Application) : AndroidViewModel(application) {
 
-    var firstName = MutableLiveData<String?>()
-    var lastName = MutableLiveData<String?>()
-    var profession = MutableLiveData<String?>()
-    var mobileNo = MutableLiveData<String?>()
+    var firstName : MutableLiveData<String> = MutableLiveData("")
+    var lastName : MutableLiveData<String> = MutableLiveData("")
+    var profession : MutableLiveData<String> = MutableLiveData("")
+    var mobileNo : MutableLiveData<String> = MutableLiveData("")
     var upFirstName = MutableLiveData<String?>()
     var upLastName = MutableLiveData<String?>()
     var upProfession = MutableLiveData<String?>()
@@ -45,12 +47,45 @@ class MyViewModel(private val developerRepository: DeveloperRepository) : ViewMo
 
     //TODO: Function for inserting data into database
     fun saveDataOnClick() {
-        val fName = firstName.value!!
-        val lName = lastName.value!!
-        val prof = profession.value!!
-        val mobNo = mobileNo.value!!
-        insert((DeveloperEntity(0, fName, lName, prof, mobNo)))
-        setNullValue()
+        if (validation())
+            {
+                val fName = firstName.value!!
+                val lName = lastName.value!!
+                val prof = profession.value!!
+                val mobNo = mobileNo.value!!
+                insert((DeveloperEntity(0, fName, lName, prof, mobNo)))
+//                setNullValue()
+            }
+//        val fName = firstName.value!!
+//        val lName = lastName.value!!
+//        val prof = profession.value!!
+//        val mobNo = mobileNo.value!!
+//        insert((DeveloperEntity(0, fName, lName, prof, mobNo)))
+//        setNullValue()
+    }
+
+    private fun validation() : Boolean{
+        return when {
+            firstName.value!!.isEmpty()-> {
+                Toast.makeText(getApplication(), "Enter The First Name!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            lastName.value!!.isEmpty()-> {
+                Toast.makeText(getApplication(), "ENter Your Last NAme!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            profession.value!!.isEmpty()-> {
+                Toast.makeText(getApplication(), "ENter Your Profession!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            mobileNo.value!!.isEmpty()-> {
+                Toast.makeText(getApplication(), "ENter Your Mobile No!", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> {
+                return true
+            }
+        }
     }
 
     //TODO: Function for updating data into database
@@ -62,7 +97,7 @@ class MyViewModel(private val developerRepository: DeveloperRepository) : ViewMo
             developerData.mobNo = mobileNo.value!!
 
             update(developerData)
-            setNullValue()
+//            setNullValue()
         }
     }
 
@@ -81,7 +116,7 @@ class MyViewModel(private val developerRepository: DeveloperRepository) : ViewMo
     fun deleteDataOnClick() {
         if (isUpdateOrDelete) {
             delete(developerData)
-            setNullValue()
+//            setNullValue()
         }
     }
 
@@ -122,10 +157,10 @@ class MyViewModel(private val developerRepository: DeveloperRepository) : ViewMo
     }
 
     //TODO: Function data from layout
-    private fun setNullValue() {
-        firstName.value = null
-        lastName.value = null
-        profession.value = null
-        mobileNo.value = null
-    }
+//    private fun setNullValue() {
+//        firstName.value = null
+//        lastName.value = null
+//        profession.value = null
+//        mobileNo.value = null
+//    }
 }

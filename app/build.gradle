@@ -41,6 +41,7 @@ dependencies {
 //TODO: Coroutine dependency libraries: -
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+//    implementation 'androidx.databinding:databinding-runtime:7.2.1'
 //TODO: Room database dependencies: -
     def roomVersion = "2.5.0-alpha02"
     implementation("androidx.room:room-runtime:$roomVersion")
