@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 
 class MyViewModel(private val developerRepository: DeveloperRepository, application: Application) : AndroidViewModel(application) {
 
-    var firstName : MutableLiveData<String> = MutableLiveData("")
-    var lastName : MutableLiveData<String> = MutableLiveData("")
-    var profession : MutableLiveData<String> = MutableLiveData("")
-    var mobileNo : MutableLiveData<String> = MutableLiveData("")
+    var firstName : MutableLiveData<String?> = MutableLiveData("")
+    var lastName : MutableLiveData<String?> = MutableLiveData("")
+    var profession : MutableLiveData<String?> = MutableLiveData("")
+    var mobileNo : MutableLiveData<String?> = MutableLiveData("")
     var upFirstName = MutableLiveData<String?>()
     var upLastName = MutableLiveData<String?>()
     var upProfession = MutableLiveData<String?>()
@@ -54,14 +54,8 @@ class MyViewModel(private val developerRepository: DeveloperRepository, applicat
                 val prof = profession.value!!
                 val mobNo = mobileNo.value!!
                 insert((DeveloperEntity(0, fName, lName, prof, mobNo)))
-//                setNullValue()
+                setNullValue()
             }
-//        val fName = firstName.value!!
-//        val lName = lastName.value!!
-//        val prof = profession.value!!
-//        val mobNo = mobileNo.value!!
-//        insert((DeveloperEntity(0, fName, lName, prof, mobNo)))
-//        setNullValue()
     }
 
     private fun validation() : Boolean{
@@ -91,13 +85,13 @@ class MyViewModel(private val developerRepository: DeveloperRepository, applicat
     //TODO: Function for updating data into database
     fun updateDataOnClick() {
         if (isUpdateOrDelete) {
-            developerData.fName = firstName.value!!
-            developerData.lName = lastName.value!!
-            developerData.prof = profession.value!!
-            developerData.mobNo = mobileNo.value!!
+            developerData.fName = upFirstName.value!!
+            developerData.lName = upLastName.value!!
+            developerData.prof = upProfession.value!!
+            developerData.mobNo = upMobileNo.value!!
 
             update(developerData)
-//            setNullValue()
+            setNullValueForUpdatedData()
         }
     }
 
@@ -116,7 +110,7 @@ class MyViewModel(private val developerRepository: DeveloperRepository, applicat
     fun deleteDataOnClick() {
         if (isUpdateOrDelete) {
             delete(developerData)
-//            setNullValue()
+            setNullValueForUpdatedData()
         }
     }
 
@@ -157,10 +151,17 @@ class MyViewModel(private val developerRepository: DeveloperRepository, applicat
     }
 
     //TODO: Function data from layout
-//    private fun setNullValue() {
-//        firstName.value = null
-//        lastName.value = null
-//        profession.value = null
-//        mobileNo.value = null
-//    }
+    private fun setNullValue() {
+        firstName.value = null
+        lastName.value = null
+        profession.value = null
+        mobileNo.value = null
+    }
+
+    private fun setNullValueForUpdatedData() {
+        upFirstName.value = null
+        upLastName.value = null
+        upProfession.value = null
+        upMobileNo.value = null
+    }
 }
