@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
 
+            insertDataBinding.cancelBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
             insertDataBinding.insertViewModel = myViewModel
 
             insertDataBinding.lifecycleOwner = this
@@ -73,6 +77,9 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
+        updateDeleteDataBinding.cancelBtn.setOnClickListener {
+            dialog.dismiss()
+        }
 
         updateDeleteDataBinding.updateViewModel = myViewModel
         updateDeleteDataBinding.lifecycleOwner = this
